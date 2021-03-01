@@ -33,6 +33,8 @@ void testInterval() {
 }
 
 int main () {
+
+  
   char data;
   while (std::cin >> data) {
     switch (data) {
@@ -43,5 +45,7 @@ int main () {
       default: std::cerr << "Invalid type\n";
     }
   }
+
+  
   return 0;
 }

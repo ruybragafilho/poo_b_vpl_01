@@ -14,7 +14,7 @@
 struct BitSet {
   BitSet(unsigned value): _set(value) {}
   const unsigned _set;
-  friend std::ostream & operator<<(std::ostream& os, const BitSet& i) {
+  friend std::ostream & operator<< (std::ostream& os, const BitSet& i) {
     const int limit = sizeof(unsigned) * 8;
     os << '<';
     for (int aux = 0; aux < limit; aux++) {
@@ -37,6 +37,23 @@ struct BitSet {
    * \return true if bit_set1 is greater than bit_set2
    */
   // TODO: implement this operator.
+
+  bool operator >=(const BitSet& bitset) const {
+
+    bool maiorOuIgual = true;
+    const int limit = sizeof(unsigned) * 8;
+
+    for (int aux = 0; aux < limit; aux++) {
+      unsigned mask = 1 << aux;
+      if ((this->_set & mask) && !(bitset._set & mask)) {
+         maiorOuIgual = false;
+         break;
+      }
+    }    
+
+    return(  maiorOuIgual ); 
+  }
+
 };
 
 /**
@@ -49,7 +66,7 @@ struct Interval {
   Interval(int left, int right): _l(left), _r(right) {}
   const int _l;
   const int _r;
-  friend std::ostream & operator<<(std::ostream& os, const Interval& i) {
+  friend std::ostream & operator <<(std::ostream& os, const Interval& i) {
     os << '(' << i._l << ", " << i._r << ')';
     return os;
   }
@@ -60,6 +77,11 @@ struct Interval {
    * \return true if interval1 is greater than or equal interval2
    */
   // TODO: implement this operator.
+
+  bool operator >=(const Interval& interval) const {
+    return(  this->_l <= interval._l  &&  this->_r >= interval._r ); 
+  }
+
 };
 
 /**
@@ -68,7 +90,25 @@ struct Interval {
  */
 template <class T>
 T GetMaxDefault (T a, T b, T dflt) {
-  // TODO: implement this generic function.
+  
+  int flagIgualdade = -1;
+  T*  retornoPtr;
+
+  if( a >= b )  {
+    retornoPtr = &a;
+    ++flagIgualdade;
+  } 
+  
+  if( b >= a )  {
+    retornoPtr = &b;
+    ++flagIgualdade;    
+  }
+
+  if( flagIgualdade )  {
+    return dflt;
+  } else {
+    return *retornoPtr;
+  }
 }
 
 #endif
