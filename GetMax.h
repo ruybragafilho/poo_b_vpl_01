@@ -51,10 +51,10 @@ struct BitSet {
       }
     }    
 
-    return(  maiorOuIgual ); 
+    return( maiorOuIgual ); 
   }
-
 };
+
 
 /**
  * \brief The representation of an integer interval. An integer interval has a
@@ -76,13 +76,11 @@ struct Interval {
    * (b1, b2) if a1 <= b1 and a2 >= b2.
    * \return true if interval1 is greater than or equal interval2
    */
-  // TODO: implement this operator.
-
   bool operator >=(const Interval& interval) const {
-    return(  this->_l <= interval._l  &&  this->_r >= interval._r ); 
+    return( (this->_l <= interval._l)  &&  (this->_r >= interval._r) ); 
   }
-
 };
+
 
 /**
  * \brief Returns the greatest of two elements, or a default, if neither of
@@ -91,24 +89,9 @@ struct Interval {
 template <class T>
 T GetMaxDefault (T a, T b, T dflt) {
   
-  int flagIgualdade = -1;
-  T*  retornoPtr;
-
-  if( a >= b )  {
-    retornoPtr = &a;
-    ++flagIgualdade;
-  } 
-  
-  if( b >= a )  {
-    retornoPtr = &b;
-    ++flagIgualdade;    
-  }
-
-  if( flagIgualdade )  {
-    return dflt;
-  } else {
-    return *retornoPtr;
-  }
+  if( a >= b )  return a;
+  if( b >= a )  return b;
+  return dflt;
 }
 
 #endif
